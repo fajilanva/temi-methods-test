@@ -13,24 +13,24 @@ class TemiRobot {
     }
   }
 
-  Future<void> goToTemi() async {
+  Future<void> goToTemi(String location) async {
     print("going to location");
     try {
-      await platform.invokeMethod<bool>('goToTemi');
+      await platform.invokeMethod<bool>('goToTemi', {"location": location});
     } on PlatformException catch (e) {
       print(e);
     }
   }
 
-  // Future<List<String>?> geLocationsTemi() async {
-  //   print("showing locations");
-  //   try {
-  //     List<String> locations = ["home base", "kitchen", "meeting room"];
-  //     // List<String>? locations = await platform.invokeMethod<List<String>>('getLocationsTemi');
-  //     return locations;
-  //   } on PlatformException catch (e) {
-  //     print(e);
-  //     return null;
-  //   }
-  // }
+  Future<List<String>?> getLocationsTemi() async {
+    print("showing locations");
+    try {
+      // List<String> locations = ["home base", "kitchen", "meeting room", "HR"];
+      List<String>? locations = await platform.invokeMethod<List<String>>('getLocationsTemi');
+      return locations;
+    } on PlatformException catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

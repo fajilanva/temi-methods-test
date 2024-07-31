@@ -67,9 +67,9 @@ class MainActivity: FlutterActivity() {
         return true;
     }
 
-    private fun temiGoTo(): Boolean {
-        robot.goTo("home base", false, null, null);
-        return true;
+    private fun temiGoTo(location: String): Boolean {
+        robot.goTo(location, false, null, null)
+        return True
     }
 
     private fun temiGetLocations(): MutableList<String> {
