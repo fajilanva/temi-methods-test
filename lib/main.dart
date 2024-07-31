@@ -30,8 +30,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = TextEditingController();
-
+  List<String> locations = [];
   TemiRobot robot = TemiRobot();
+
+  void getLocations() async {
+    List<String> newLocations = (await robot.getLocationsTemi())!;
+    setState(() {
+      locations = newLocations;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +69,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 10,
                     ),
                     ElevatedButton(
-                        onPressed: () => robot.speakTemi(_controller.text), child: const Text('Speak')),
+                        onPressed: () => robot.speakTemi(_controller.text),
+                        child: const Text('Speak')),
                   ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 ElevatedButton(
-                    onPressed: robot.goToTemi,
+                    onPressed: () => robot.goToTemi("home base"),
                     child: const Text('Go to Home Base')),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: getLocations,
+                    child: const Text("Get All Locations")),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (String location in locations)
+                      ElevatedButton(
+                          onPressed: () => robot.speakTemi(location),
+                          child: Text(location))
+                  ],
+                )
               ],
             ),
           ),

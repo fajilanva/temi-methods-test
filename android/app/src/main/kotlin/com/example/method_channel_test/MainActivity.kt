@@ -61,13 +61,13 @@ class MainActivity: FlutterActivity() {
     }
 
     private fun temiSpeak(text: String): Boolean {
-        val ttsRequest = TtsRequest.create(text, true);
+        val ttsRequest = TtsRequest.create(text, false);
         robot.speak(ttsRequest)
         return True
     }
 
-    private fun temiGoTo(): Boolean {
-        robot.goTo("home base", false, null, null)
+    private fun temiGoTo(location: String): Boolean {
+        robot.goTo(location, false, null, null)
         return True
     }
 
