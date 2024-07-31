@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     for (String location in locations)
                       ElevatedButton(
-                          onPressed: () => robot.speakTemi(location),
+                          onPressed: () => robot.goToTemi(location),
                           child: Text(location))
                   ],
                 )
