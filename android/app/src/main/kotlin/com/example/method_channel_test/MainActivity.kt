@@ -42,7 +42,8 @@ class MainActivity: FlutterActivity() {
                 }
                 "goToTemi" -> {
                     try {
-                        val isSuccessful = temiGoTo()
+                        val text = call.argument<String>("location") ?: "";
+                        val isSuccessful = temiGoTo(location)
                         result.success(isSuccessful)
                     } catch (e:Exception) {
                         println(e)
@@ -62,7 +63,7 @@ class MainActivity: FlutterActivity() {
     }
 
     private fun temiSpeak(text: String): Boolean {
-        val ttsRequest = TtsRequest.create(text, true);
+        val ttsRequest = TtsRequest.create(text, false);
         robot.speak(ttsRequest);
         return true;
     }
