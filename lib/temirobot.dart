@@ -7,7 +7,7 @@ class TemiRobot {
   Future<void> speakTemi(String speech) async {
     print("speaking");
     try {
-      await platform.invokeMethod<bool>('speakTemi', {"speech", speech});
+      await platform.invokeMethod<bool>('speakTemi', {"speech": speech});
     } on PlatformException catch (e) {
       print(e);
     }

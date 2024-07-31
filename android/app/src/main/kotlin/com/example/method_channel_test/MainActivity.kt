@@ -32,12 +32,12 @@ class MainActivity: FlutterActivity() {
             call, result ->
             when (call.method) {
                 "speakTemi" -> {
-                    if (call.method == "speakTemi") {
-                        val text = call.argument<String>("speech")
-                        val isSuccessful = temiSpeak(text)
-                        result.success(isSuccessful)
-                    } catch (e:Exception) {
-                        println(e)
+                    try {
+                        val text = call.argument<String>("speech") ?: "";
+                        val isSuccessful = temiSpeak(text);
+                        result.success(isSuccessful);
+                    } catch ( e:Exception ) {
+                        println(e);
                     } 
                 }
                 "goToTemi" -> {
@@ -47,6 +47,7 @@ class MainActivity: FlutterActivity() {
                     } catch (e:Exception) {
                         println(e)
                     }
+                }
                 "getLocationsTemi" -> {
                     try {
                         val locations = temiGoTo()
@@ -61,9 +62,9 @@ class MainActivity: FlutterActivity() {
     }
 
     private fun temiSpeak(text: String): Boolean {
-        val ttsRequest = TtsRequest.create(text, false);
-        robot.speak(ttsRequest)
-        return True
+        val ttsRequest = TtsRequest.create(text, true);
+        robot.speak(ttsRequest);
+        return true;
     }
 
     private fun temiGoTo(location: String): Boolean {
@@ -71,8 +72,11 @@ class MainActivity: FlutterActivity() {
         return True
     }
 
-    private fun temiGetLocations(): List<String> {
-        List<String> locations = robot.getLocations()
-        return locations
+    private fun temiGetLocations(): MutableList<String> {
+        val locations: MutableList<String> = mutableListOf();
+        for(location in robot.locations) {
+            locations.add(location);
+        }
+        return locations;
     }
-}}
+}
